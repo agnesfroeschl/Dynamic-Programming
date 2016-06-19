@@ -41,7 +41,7 @@ public class KadaneMaxSubarray {
      * @return array containing all itegers of the max subarray
      */
     public int maxSubArray1(int[] array) {
-        maxEndingHere = maxSoFar = array[0];
+        maxSoFar = array[0];
         int[] maxSum = new int[array.length];
 
         for(int i = 1; i < array.length; i++){
@@ -52,35 +52,40 @@ public class KadaneMaxSubarray {
     }
 
 
-
-    public int maxSubArray2(int[] A) {
-        int max = A[0];
-        int[] sum = new int[A.length];
-        sum[0] = A[0];
+    /**
+     * third option of Kandan's Algorithm
+     * using begin and end index of the subarray
+     * @param array
+     * @return max sum
+     */
+    public int maxSubArray2(int[] array) {
+        maxSoFar = array[0];
+        int[] maxSum = new int[array.length];
+        maxSum[0] = array[0];
 
         int begin = 0;
         int end = 0;
 
-        for (int i = 1; i < A.length; i++) {
+        for (int i = 1; i < array.length; i++) {
 
             int newBegin = begin;
             int newEnd = end;
 
-            if (A[i] > sum[i - 1] + A[i]) {
-                sum[i] = A[i];
+            if (array[i] > maxSum[i - 1] + array[i]) {
+                maxSum[i] = array[i];
                 newBegin = i;
                 newEnd = i;
             } else {
-                sum[i] = sum[i - 1] + A[i];
+                maxSum[i] = maxSum[i - 1] + array[i];
                 newEnd = i;
             }
 
-            if (sum[i] > max) {
-                max = sum[i];
+            if (maxSum[i] > maxSoFar) {
+                maxSoFar = maxSum[i];
                 begin = newBegin;
                 end = newEnd;
             }
         }
-        return max;
+        return maxSoFar;
     }
 }
